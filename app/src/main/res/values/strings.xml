@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">MobiMarket</string>
+    <string name="mobi_market">MOBI MARKET</string>
+    <string name="user_name">Имя пользователя</string>
+    <string name="password">Пароль</string>
+    <string name="forgot_password">Забыли пароль</string>
+    <string name="enter">Войти</string>
+    <string name="registration">Зарегистрироваться</string>
 </resources>
