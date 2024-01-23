@@ -1,4 +1,4 @@
-package com.example.mobimarket.presentation.authorization
+package com.example.mobimarket.presentation.login
 
 import android.text.Editable
 import android.text.TextWatcher
@@ -33,9 +33,14 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         observeLogin()
         writeInfo()
         buttonState()
+        navigateToRegister()
     }
 
-
+    private fun navigateToRegister(){
+        binding.tvRegistration.setSafeOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+        }
+    }
     private fun observeLogin() {
         viewModel.loginResult.observe(viewLifecycleOwner) { loginResult ->
             when (loginResult) {

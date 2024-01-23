@@ -5,5 +5,12 @@
     <string name="password">Пароль</string>
     <string name="forgot_password">Забыли пароль</string>
     <string name="enter">Войти</string>
-    <string name="registration">Зарегистрироваться</string>
+    <string name="registrate">Зарегистрироваться</string>
+    <string name="registration">Регистрация</string>
+    <string name="email">Почта</string>
+    <string name="next">Далее</string>
+    <string name="make_password">Придумайте пароль</string>
+    <string name="password_info_text">Минимальная длина — 8символов.\nДля надежности пароль должен\nсодержать буквы и цифры.</string>
+    <string name="write_again_password">Повторите пароль</string>
+    <string name="ready">Готово</string>
 </resources>

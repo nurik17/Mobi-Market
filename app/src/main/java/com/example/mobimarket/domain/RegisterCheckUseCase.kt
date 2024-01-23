@@ -3,9 +3,7 @@ package com.example.mobimarket.domain
 import com.example.mobimarket.data.entity.RegisterResponse
 import retrofit2.Response
 
-interface AuthorizationRepository {
-
-    suspend fun login(username: String, password: String): Response<LoginResponse>
+interface RegisterCheckUseCase {
 
     suspend fun registerCheck(
         username: String,
@@ -13,4 +11,5 @@ interface AuthorizationRepository {
         confirm_password: String,
         password: String
     ): Response<RegisterResponse>
+
 }
