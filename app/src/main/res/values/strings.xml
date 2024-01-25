@@ -13,4 +13,15 @@
     <string name="password_info_text">Минимальная длина — 8символов.\nДля надежности пароль должен\nсодержать буквы и цифры.</string>
     <string name="write_again_password">Повторите пароль</string>
     <string name="ready">Готово</string>
+    <string name="home">Home</string>
+    <string name="favourite">Favourite</string>
+    <string name="create">Create</string>
+    <string name="profile">Профиль</string>
+    <string name="change">Изменить</string>
+    <string name="favourites">Понравившиеся</string>
+    <string name="my_products">Мои товары</string>
+    <string name="logout">Выйти</string>
+    <string name="finish_registration">Закончить регистрацию</string>
+    <string name="plogout_dialog_text">Вы действительно хотите выйти\nс аккаунта?</string>
+    <string name="cancel">Отмена</string>
 </resources>

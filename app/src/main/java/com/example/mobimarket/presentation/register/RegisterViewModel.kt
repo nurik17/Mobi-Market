@@ -1,14 +1,12 @@
-package com.example.mobimarket.presentation.signup
+package com.example.mobimarket.presentation.register
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mobimarket.data.entity.LoginResult
 import com.example.mobimarket.data.entity.RegisterResponse
 import com.example.mobimarket.data.entity.RegisterResult
-import com.example.mobimarket.domain.LoginResponse
-import com.example.mobimarket.domain.RegisterCheckUseCase
+import com.example.mobimarket.domain.useCase.RegisterCheckUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Response

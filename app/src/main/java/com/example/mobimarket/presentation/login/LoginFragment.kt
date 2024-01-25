@@ -28,7 +28,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         binding.btnLogin.setSafeOnClickListener {
             val userName = binding.userNameEdit.text.toString()
             val password = binding.passwordEdit.text.toString()
-            viewModel.login(userName, password)
+            viewModel.login(password, userName)
         }
         observeLogin()
         writeInfo()
@@ -41,6 +41,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
     }
+
     private fun observeLogin() {
         viewModel.loginResult.observe(viewLifecycleOwner) { loginResult ->
             when (loginResult) {

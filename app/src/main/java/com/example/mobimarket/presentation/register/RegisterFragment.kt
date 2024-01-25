@@ -1,14 +1,11 @@
-package com.example.mobimarket.presentation.signup
+package com.example.mobimarket.presentation.register
 
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.TextView
-import androidx.core.content.ContentProviderCompat
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -79,7 +76,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                 is RegisterResult.Error -> handleLoginError(result.error)
                 RegisterResult.Loading -> binding.progressBar.visibility = View.VISIBLE
                 is RegisterResult.Success -> {
-                    findNavController().navigate(R.id.action_registerFragment_to_homeFragment)
+                    findNavController().navigate(R.id.action_registerFragment_to_profileFragment)
                 }
             }
         }

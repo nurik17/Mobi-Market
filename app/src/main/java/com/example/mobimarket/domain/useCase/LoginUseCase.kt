@@ -1,5 +1,6 @@
-package com.example.mobimarket.domain
+package com.example.mobimarket.domain.useCase
 
+import com.example.mobimarket.domain.LoginResponse
 import retrofit2.Response
 
 interface LoginUseCase {

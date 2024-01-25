@@ -17,7 +17,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 object NetworkModule {
-
     @Provides
     @MobiMarketUrl
     fun provideMobiMarketUrl(): String {

@@ -20,18 +20,41 @@
         android:label="HomeFragment" />
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.mobimarket.presentation.signup.RegisterFragment"
+        android:name="com.example.mobimarket.presentation.register.RegisterFragment"
         android:label="RegisterFragment" >
         <action
-            android:id="@+id/action_registerFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            android:id="@+id/action_registerFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
-  <!--  <fragment
-        android:id="@+id/registerPasswordFragment"
-        android:name="com.example.mobimarket.presentation.signup.RegisterPasswordFragment"
-        android:label="RegisterPasswordFragment" >
+    <fragment
+        android:id="@+id/favouriteFragment"
+        android:name="com.example.mobimarket.presentation.favourite.FavouriteFragment"
+        android:label="FavouriteFragment" />
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="com.example.mobimarket.presentation.addAdvert.AddFragment"
+        android:label="AddFragment" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.mobimarket.presentation.profile.ProfileFragment"
+        android:label="ProfileFragment" >
         <action
-            android:id="@+id/action_registerPasswordFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-    </fragment>-->
+            android:id="@+id/action_profileFragment_to_profileUpdateFragment"
+            app:destination="@id/profileUpdateFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileUpdateFragment"
+        android:name="com.example.mobimarket.presentation.profile.ProfileUpdateFragment"
+        android:label="ProfileUpdateFragment" />
+    <!--  <fragment
+          android:id="@+id/registerPasswordFragment"
+          android:name="com.example.mobimarket.presentation.signup.RegisterPasswordFragment"
+          android:label="RegisterPasswordFragment" >
+          <action
+              android:id="@+id/action_registerPasswordFragment_to_homeFragment"
+              app:destination="@id/homeFragment" />
+      </fragment>-->
 </navigation>

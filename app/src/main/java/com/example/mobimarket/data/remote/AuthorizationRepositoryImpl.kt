@@ -1,6 +1,8 @@
 package com.example.mobimarket.data.remote
 
 import com.example.mobimarket.data.entity.LoginRequestBody
+import com.example.mobimarket.data.entity.LogoutBody
+import com.example.mobimarket.data.entity.LogoutResponse
 import com.example.mobimarket.data.entity.RegisterResponse
 import com.example.mobimarket.domain.LoginResponse
 import com.example.mobimarket.domain.AuthorizationRepository
@@ -24,5 +26,11 @@ class AuthorizationRepositoryImpl @Inject constructor(
     ): Response<RegisterResponse> {
         val registerRequest = RegisterRequestBody(confirm_password, email, password, username)
         return api.register(registerRequest)
+    }
+
+    override suspend fun logout(refresh_token: String, accessToken: String): Response<LogoutResponse> {
+        val refreshToken = LogoutBody(refresh_token)
+        val access = "Bearer $accessToken"
+        return api.logout(refreshToken,access)
     }
 }

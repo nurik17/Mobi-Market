@@ -1,6 +1,7 @@
-package com.example.mobimarket.domain
+package com.example.mobimarket.domain.useCase
 
 import com.example.mobimarket.data.entity.RegisterResponse
+import com.example.mobimarket.domain.AuthorizationRepository
 import retrofit2.Response
 import javax.inject.Inject
 

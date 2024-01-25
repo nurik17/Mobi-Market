@@ -14,4 +14,5 @@ interface RepositoryModule{
     @Binds
     fun bindProductRepository(impl: AuthorizationRepositoryImpl): AuthorizationRepository
 
+
 }

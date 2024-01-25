@@ -1,4 +1,4 @@
-package com.example.mobimarket.domain
+package com.example.mobimarket.domain.useCase
 
 import com.example.mobimarket.data.entity.RegisterResponse
 import retrofit2.Response
