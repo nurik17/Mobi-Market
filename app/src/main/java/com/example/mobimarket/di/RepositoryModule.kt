@@ -1,7 +1,9 @@
 package com.example.mobimarket.di
 
 import com.example.mobimarket.data.remote.AuthorizationRepositoryImpl
-import com.example.mobimarket.domain.AuthorizationRepository
+import com.example.mobimarket.data.remote.MobiRepositoryImpl
+import com.example.mobimarket.domain.repository.AuthorizationRepository
+import com.example.mobimarket.domain.repository.MobiRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -12,7 +14,8 @@ import dagger.hilt.components.SingletonComponent
 interface RepositoryModule{
 
     @Binds
-    fun bindProductRepository(impl: AuthorizationRepositoryImpl): AuthorizationRepository
+    fun bindAuthorizationRepository(impl: AuthorizationRepositoryImpl): AuthorizationRepository
 
-
+    @Binds
+    fun bindMobiRepository(impl: MobiRepositoryImpl): MobiRepository
 }

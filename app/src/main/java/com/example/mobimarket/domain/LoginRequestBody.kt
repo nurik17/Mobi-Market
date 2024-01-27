@@ -1,4 +1,4 @@
-package com.example.mobimarket.data.entity
+package com.example.mobimarket.domain
 
 data class LoginRequestBody(
     val password: String,

@@ -1,6 +1,6 @@
 package com.example.mobimarket.domain.useCase
 
-import com.example.mobimarket.domain.AuthorizationRepository
+import com.example.mobimarket.domain.repository.AuthorizationRepository
 import com.example.mobimarket.domain.LoginResponse
 import retrofit2.Response
 import javax.inject.Inject

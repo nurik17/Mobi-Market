@@ -1,6 +1,6 @@
 package com.example.mobimarket.domain.useCase
 
-import com.example.mobimarket.data.entity.LogoutResponse
+import com.example.mobimarket.domain.LogoutResponse
 import retrofit2.Response
 
 interface LogoutUseCase {

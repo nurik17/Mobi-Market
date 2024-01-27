@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.favouriteFragment -> showBottomNav()
                 R.id.profileFragment -> showBottomNav()
                 R.id.addFragment -> showBottomNav()
+                R.id.profileDialogFragment -> showBottomNav()
                 else -> hideBottomNav()
             }
         }

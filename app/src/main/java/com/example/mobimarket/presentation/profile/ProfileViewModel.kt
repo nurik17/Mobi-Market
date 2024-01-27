@@ -6,8 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mobimarket.data.entity.LogoutResponse
-import com.example.mobimarket.data.entity.LogoutResult
+import com.example.mobimarket.domain.LogoutResponse
+import com.example.mobimarket.data.entity.StateResult
 import com.example.mobimarket.domain.useCase.LogoutUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -21,28 +21,25 @@ class ProfileViewModel @Inject constructor(
     private val sharedPreferences: SharedPreferences
 ) : ViewModel() {
 
-    private val _logoutCase = MutableLiveData<LogoutResult>()
-    val logoutCase: LiveData<LogoutResult> = _logoutCase
+    private val _logoutCase = MutableLiveData<StateResult>()
+    val logoutCase: LiveData<StateResult> = _logoutCase
 
     fun logout() {
         viewModelScope.launch(Dispatchers.IO) {
-            _logoutCase.postValue(LogoutResult.Loading) //background thread
+            _logoutCase.postValue(StateResult.Loading) //background thread
             try {
                 val refreshToken = sharedPreferences.getString("refresh_token", null)
-                Log.d("ProfileViewModel", "refreshToken: $refreshToken")
                 val accessToken = sharedPreferences.getString("access_token", null)
-                Log.d("ProfileViewModel", "accessToken: $accessToken")
 
                 val response = logoutUseCase.logout(refreshToken!!, accessToken!!)
-                Log.d("ProfileViewModel", "response body: $response")
                 if (response.isSuccessful) {
-                    _logoutCase.postValue(LogoutResult.Success(response.body()))
+                    _logoutCase.postValue(StateResult.Success(response.body()))
                 } else {
                     val errorMessage = parseErrorMessage(response)
-                    _logoutCase.postValue(LogoutResult.Error(errorMessage))
+                    _logoutCase.postValue(StateResult.Error(errorMessage))
                 }
             } catch (e: Exception) {
-                _logoutCase.postValue(LogoutResult.Error(e.message.toString()))
+                _logoutCase.postValue(StateResult.Error(e.message.toString()))
             }
         }
     }

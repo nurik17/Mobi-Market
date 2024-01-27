@@ -1,10 +1,10 @@
 package com.example.mobimarket.presentation.profile
 
-import android.util.Log
-import androidx.fragment.app.viewModels
+import android.net.Uri
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.mobimarket.R
-import com.example.mobimarket.data.entity.LogoutResult
 import com.example.mobimarket.databinding.FragmentProfileBinding
 import com.example.mobimarket.utils.BaseFragment
 import com.example.mobimarket.utils.setSafeOnClickListener
@@ -13,41 +13,35 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
 
-    private val viewModel: ProfileViewModel by viewModels()
-
     override fun onBindView() {
         super.onBindView()
-        updateProfileNavigate()
 
-        binding.tvLogout.setSafeOnClickListener {
-            viewModel.logout()
+        val imageUriString = arguments?.getString("imageUri")
+
+        if (!imageUriString.isNullOrEmpty()) {
+            val imageUri = Uri.parse(imageUriString)
+
+            val imageView = binding.imageProfilePage
+            Glide.with(requireContext())
+                .load(imageUri)
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(imageView)
         }
-        observeLogoutResult()
+        updateProfileNavigate()
+        navigateToLogoutDialog()
     }
 
-
+    private fun navigateToLogoutDialog(){
+        binding.tvLogout.setSafeOnClickListener {
+            findNavController().navigate(R.id.action_profileFragment_to_profileDialogFragment)
+        }
+    }
     private fun updateProfileNavigate() {
         binding.btnFinishRegistration.setSafeOnClickListener {
-
+            findNavController().navigate(R.id.action_profileFragment_to_profileUpdateFragment)
         }
     }
-    private fun observeLogoutResult() {
-        viewModel.logoutCase.observe(viewLifecycleOwner) { result ->
-            when (result) {
-                is LogoutResult.Loading -> {
-                    Log.d("ProfileFragment", "observeLogoutResult: loading")
-                }
 
-                is LogoutResult.Success -> {
-                    findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
-                    Log.d("ProfileFragment", "observeLogoutResult: success")
-                }
 
-                is LogoutResult.Error -> {
-                    val errorMessage = result.error
-                    Log.d("ProfileFragment", "$errorMessage observeLogoutResult: error")
-                }
-            }
-        }
-    }
 }

@@ -42,13 +42,54 @@
             android:id="@+id/action_profileFragment_to_profileUpdateFragment"
             app:destination="@id/profileUpdateFragment" />
         <action
-            android:id="@+id/action_profileFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            android:id="@+id/action_profileFragment_to_profileDialogFragment"
+            app:destination="@id/profileDialogFragment" />
+        <argument
+            android:name="imageUri"
+            app:argType="string"/>
     </fragment>
     <fragment
         android:id="@+id/profileUpdateFragment"
         android:name="com.example.mobimarket.presentation.profile.ProfileUpdateFragment"
-        android:label="ProfileUpdateFragment" />
+        android:label="ProfileUpdateFragment" >
+        <action
+            android:id="@+id/action_profileUpdateFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_profileUpdateFragment_to_fragmentWritePhone"
+            app:destination="@id/fragmentWritePhone" />
+        <argument
+            android:name="codeFromSms"
+            app:argType="string"/>
+
+    </fragment>
+    <dialog
+        android:id="@+id/profileDialogFragment"
+        android:name="com.example.mobimarket.presentation.profile.ProfileDialogFragment"
+        android:label="ProfileDialogFragment" >
+        <action
+            android:id="@+id/action_profileDialogFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/my_nav"
+            app:popUpToInclusive="false" />
+    </dialog>
+    <fragment
+        android:id="@+id/fragmentVerifyCode"
+        android:name="com.example.mobimarket.presentation.verifyPhone.FragmentVerifyCode"
+        android:label="FragmentVerifyCode" >
+        <action
+            android:id="@+id/action_fragmentVerifyCode_to_profileUpdateFragment"
+            app:destination="@id/profileUpdateFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentWritePhone"
+        android:name="com.example.mobimarket.presentation.verifyPhone.FragmentWritePhone"
+        android:label="FragmentWritePhone" >
+        <action
+            android:id="@+id/action_fragmentWritePhone_to_fragmentVerifyCode"
+            app:destination="@id/fragmentVerifyCode" />
+
+    </fragment>
     <!--  <fragment
           android:id="@+id/registerPasswordFragment"
           android:name="com.example.mobimarket.presentation.signup.RegisterPasswordFragment"

@@ -24,4 +24,18 @@
     <string name="finish_registration">Закончить регистрацию</string>
     <string name="plogout_dialog_text">Вы действительно хотите выйти\nс аккаунта?</string>
     <string name="cancel">Отмена</string>
+    <string name="choose_image">Выбрать фотографию</string>
+    <string name="name">Имя</string>
+    <string name="username">Имя пользователя</string>
+    <string name="surname">Фамилия</string>
+    <string name="birth_date">ггшш-мм-дд</string>
+    <string name="add_number">Добавить номер</string>
+    <string name="default_number">0(000) 000 000</string>
+    <string name="write_phone_number">Введите номер телефона</string>
+    <string name="write_number_info_text">Мы отправим вам СМС с кодом подтверждения</string>
+    <string name="write_code_sms">Введите код из СМС</string>
+    <string name="re_request_code">Повторный запрос</string>
+    <string name="send_code_again">Отправить код еще раз</string>
+    <string name="change_phoneNumber">Изменить номер телефона</string>
+    <string name="error_code">Неверный код</string>
 </resources>

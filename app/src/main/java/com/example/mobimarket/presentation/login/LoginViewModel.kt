@@ -1,10 +1,11 @@
 package com.example.mobimarket.presentation.login
+
 import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mobimarket.data.entity.LoginResult
+import com.example.mobimarket.data.entity.StateResult
 import com.example.mobimarket.domain.LoginResponse
 import com.example.mobimarket.domain.useCase.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,31 +13,32 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import javax.inject.Inject
+
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
     private val sharedPreferences: SharedPreferences
 ) : ViewModel() {
 
-    private val _loginResult = MutableLiveData<LoginResult>()
-    val loginResult: LiveData<LoginResult> = _loginResult
+    private val _loginResult = MutableLiveData<StateResult>()
+    val loginResult: LiveData<StateResult> = _loginResult
 
     fun login(username: String, password: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            _loginResult.postValue(LoginResult.Loading) //background thread
+            _loginResult.postValue(StateResult.Loading) //background thread
             try {
                 val response = loginUseCase.login(username, password)
                 if (response.isSuccessful) {
                     val refreshToken = response.body()?.refresh
                     val accessToken = response.body()?.access
                     accessToken?.let { refreshToken?.let { it1 -> saveRefreshToken(it1, it) } }
-                    _loginResult.postValue(LoginResult.Success(response.body()))
+                    _loginResult.postValue(StateResult.Success(response.body()))
                 } else {
                     val errorMessage = parseErrorMessage(response)
-                    _loginResult.postValue(LoginResult.Error(errorMessage))
+                    _loginResult.postValue(StateResult.Error(errorMessage))
                 }
             } catch (e: Exception) {
-                _loginResult.postValue(LoginResult.Error(e.message.toString()))
+                _loginResult.postValue(StateResult.Error(e.message.toString()))
             }
         }
     }

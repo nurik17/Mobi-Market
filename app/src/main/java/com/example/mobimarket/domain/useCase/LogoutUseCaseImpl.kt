@@ -1,7 +1,7 @@
 package com.example.mobimarket.domain.useCase
 
-import com.example.mobimarket.data.entity.LogoutResponse
-import com.example.mobimarket.domain.AuthorizationRepository
+import com.example.mobimarket.domain.LogoutResponse
+import com.example.mobimarket.domain.repository.AuthorizationRepository
 import retrofit2.Response
 import javax.inject.Inject
 

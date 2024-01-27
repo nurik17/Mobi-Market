@@ -10,7 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mobimarket.R
-import com.example.mobimarket.data.entity.LoginResult
+import com.example.mobimarket.data.entity.StateResult
 import com.example.mobimarket.databinding.FragmentLoginBinding
 import com.example.mobimarket.utils.BaseFragment
 import com.example.mobimarket.utils.setSafeOnClickListener
@@ -45,14 +45,14 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     private fun observeLogin() {
         viewModel.loginResult.observe(viewLifecycleOwner) { loginResult ->
             when (loginResult) {
-                is LoginResult.Error -> {
+                is StateResult.Error -> {
                     handleLoginError(loginResult.error)
                 }
 
-                LoginResult.Loading -> {
+                StateResult.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
                 }
-                is LoginResult.Success -> {
+                is StateResult.Success<*> -> {
                     binding.progressBar.visibility = View.GONE
                     findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                 }

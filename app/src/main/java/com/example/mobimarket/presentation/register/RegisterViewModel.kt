@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mobimarket.data.entity.RegisterResponse
-import com.example.mobimarket.data.entity.RegisterResult
+import com.example.mobimarket.domain.RegisterResponse
+import com.example.mobimarket.data.entity.StateResult
 import com.example.mobimarket.domain.useCase.RegisterCheckUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -19,26 +19,26 @@ class RegisterViewModel @Inject constructor(
     private val registerCheckUseCase: RegisterCheckUseCase
 ) : ViewModel() {
 
-    private val _registerCheck = MutableLiveData<RegisterResult>()
-    val registerCheck: LiveData<RegisterResult> = _registerCheck
+    private val _registerCheck = MutableLiveData<StateResult>()
+    val registerCheck: LiveData<StateResult> = _registerCheck
 
     private val _isButtonEnabled = MutableLiveData<Boolean>()
     val isButtonEnabled: LiveData<Boolean> = _isButtonEnabled
 
     fun registerCheck(email: String, userName: String, password: String, confirm_password: String) {
         viewModelScope.launch {
-            _registerCheck.postValue(RegisterResult.Loading)
+            _registerCheck.postValue(StateResult.Loading)
             try {
                 val response =
                     registerCheckUseCase.registerCheck(email, userName, password, confirm_password)
                 if (response.isSuccessful) {
-                    _registerCheck.postValue(RegisterResult.Success(response.body()))
+                    _registerCheck.postValue(StateResult.Success(response.body()))
                 } else {
                     val errorMessage = parseErrorMessage(response)
-                    _registerCheck.postValue(RegisterResult.Error(errorMessage))
+                    _registerCheck.postValue(StateResult.Error(errorMessage))
                 }
             } catch (e: Exception) {
-                _registerCheck.postValue(RegisterResult.Error(e.message.toString()))
+                _registerCheck.postValue(StateResult.Error(e.message.toString()))
             }
         }
     }

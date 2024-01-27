@@ -1,17 +1,25 @@
 package com.example.mobimarket.data.remote
 
-import com.example.mobimarket.data.entity.LogoutBody
-import com.example.mobimarket.data.entity.LoginRequestBody
-import com.example.mobimarket.data.entity.LogoutResponse
-import com.example.mobimarket.data.entity.RegisterResponse
+import com.example.mobimarket.domain.AddPhoneNumber
+import com.example.mobimarket.domain.LogoutBody
+import com.example.mobimarket.domain.LoginRequestBody
+import com.example.mobimarket.domain.LogoutResponse
+import com.example.mobimarket.domain.ProfileUpdate
+import com.example.mobimarket.domain.VerifyPhoneBody
+import com.example.mobimarket.domain.RegisterResponse
+import com.example.mobimarket.domain.User
 import com.example.mobimarket.domain.LoginResponse
+import com.example.mobimarket.domain.ProfileUpdateBody
 import com.example.mobimarket.domain.RegisterRequestBody
+import com.example.mobimarket.domain.ResponseAddNumber
 import com.example.mobimarket.utils.Constant.X_CSRFToken
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.POST
+import retrofit2.http.PUT
 
 interface MobiApi {
 
@@ -30,4 +38,30 @@ interface MobiApi {
         @Header("Authorization") token: String
     ): Response<LogoutResponse>
 
+    @Headers("X-CSRFToken: $X_CSRFToken")
+    @GET("users/me/")
+    suspend fun getUserInfo(
+        @Header("Authorization") bearerToken: String
+    ) : Response<User>
+
+    @Headers("X-CSRFToken: $X_CSRFToken")
+    @PUT("users/profile/update/")
+    suspend fun updateProfileInfo(
+        @Body updateInfo: ProfileUpdateBody,
+        @Header("Authorization") bearerToken: String
+    ): Response<ProfileUpdate>
+
+    @Headers("X-CSRFToken: $X_CSRFToken")
+    @POST("users/verify-phone/")
+    suspend fun verifyPhoneNumber(
+        @Body code: VerifyPhoneBody,
+        @Header("Authorization") bearerToken: String
+    ): Response<ProfileUpdate>
+
+    @Headers("X-CSRFToken: $X_CSRFToken")
+    @PUT("users/add-phone/")
+    suspend fun addPhoneNumber(
+        @Body code: AddPhoneNumber,
+        @Header("Authorization") bearerToken: String
+    ): Response<ResponseAddNumber>
 }

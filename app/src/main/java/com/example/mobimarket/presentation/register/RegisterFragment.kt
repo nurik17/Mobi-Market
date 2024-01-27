@@ -10,7 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mobimarket.R
-import com.example.mobimarket.data.entity.RegisterResult
+import com.example.mobimarket.data.entity.StateResult
 import com.example.mobimarket.databinding.FragmentRegisterBinding
 import com.example.mobimarket.utils.BaseFragment
 import com.example.mobimarket.utils.setSafeOnClickListener
@@ -73,9 +73,9 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         viewModel.registerCheck.observe(viewLifecycleOwner) { result ->
             binding.progressBar.visibility = View.GONE
             when (result) {
-                is RegisterResult.Error -> handleLoginError(result.error)
-                RegisterResult.Loading -> binding.progressBar.visibility = View.VISIBLE
-                is RegisterResult.Success -> {
+                is StateResult.Error -> handleLoginError(result.error)
+                StateResult.Loading -> binding.progressBar.visibility = View.VISIBLE
+                is StateResult.Success<*> -> {
                     findNavController().navigate(R.id.action_registerFragment_to_profileFragment)
                 }
             }
