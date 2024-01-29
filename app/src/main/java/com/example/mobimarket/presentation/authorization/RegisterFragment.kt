@@ -1,4 +1,4 @@
-package com.example.mobimarket.presentation.register
+package com.example.mobimarket.presentation.authorization
 
 import android.text.Editable
 import android.text.TextWatcher
@@ -14,6 +14,7 @@ import com.example.mobimarket.data.entity.StateResult
 import com.example.mobimarket.databinding.FragmentRegisterBinding
 import com.example.mobimarket.utils.BaseFragment
 import com.example.mobimarket.utils.setSafeOnClickListener
+import com.example.mobimarket.utils.showCustomSnackbar
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,6 +28,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         setupClickListeners()
         observeRegisterCheck()
         navigateBack()
+
         arePasswordsValid(
             binding.passwordEdit.text.toString(),
             binding.confirmPasswordEdit.text.toString()
@@ -34,11 +36,11 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
 
     }
 
-    private fun arePasswordsValid(password: String, confirmPassword: String) {
+  /*  private fun arePasswordsValid(password: String, confirmPassword: String) {
         if (password != confirmPassword && password.length < 9) {
             snackBarSettings("Проверьте данные $password")
         }
-    }
+    }*/
 
 
     private fun setupClickListeners() {
@@ -48,6 +50,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                 val email = emailEdit.text.toString()
                 val password = passwordEdit.text.toString()
                 val confirmPassword = confirmPasswordEdit.text.toString()
+
 
                 viewModel.registerCheck(userName, email, password, confirmPassword)
             }
@@ -63,11 +66,11 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         }
     }
 
-    /* private fun arePasswordsValid(password: String, confirmPassword: String): Boolean {
+     private fun arePasswordsValid(password: String, confirmPassword: String): Boolean {
          val passwordRegex =
              Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@\$!%*?&])[A-Za-z\\d@\$!%*?&]{8,}\$")
          return passwordRegex.matches(password) && password == confirmPassword
-     }*/
+     }
 
     private fun observeRegisterCheck() {
         viewModel.registerCheck.observe(viewLifecycleOwner) { result ->
@@ -76,7 +79,8 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                 is StateResult.Error -> handleLoginError(result.error)
                 StateResult.Loading -> binding.progressBar.visibility = View.VISIBLE
                 is StateResult.Success<*> -> {
-                    findNavController().navigate(R.id.action_registerFragment_to_profileFragment)
+                    Snackbar.make(requireView(),"Вы успешно зарегестрировались",30).show()
+                    findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
                 }
             }
         }
@@ -93,7 +97,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
             btnRegisterCheck.isEnabled = isEnabled
             btnRegisterCheck.setBackgroundColor(
                 if (isEnabled) ContextCompat.getColor(requireContext(), R.color.maine_blue)
-                else ContextCompat.getColor(requireContext(), R.color.main_red)
+                else ContextCompat.getColor(requireContext(), R.color.light_grey)
             )
         }
     }
@@ -153,25 +157,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                 )
             )
         }
-        snackBarSettings(errorMessage)
-    }
-
-    private fun snackBarSettings(errorMessage: String) {
-        val snackbar = Snackbar.make(requireView(), errorMessage, Snackbar.LENGTH_SHORT)
-        snackbar.setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.main_red))
-
-        val snackbarLayout: View = snackbar.view
-        val params = snackbarLayout.layoutParams as FrameLayout.LayoutParams
-        params.gravity = Gravity.TOP
-        snackbarLayout.layoutParams = params
-
-        val textView: TextView =
-            snackbarLayout.findViewById(com.google.android.material.R.id.snackbar_text)
-        textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_warning, 0, 0, 0)
-        textView.compoundDrawablePadding =
-            resources.getDimensionPixelOffset(R.dimen.snackbar_icon_padding)
-
-        snackbar.show()
+        requireView().showCustomSnackbar(errorMessage)
     }
 
 }

@@ -5,7 +5,7 @@
     app:startDestination="@id/loginFragment">
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.mobimarket.presentation.login.LoginFragment"
+        android:name="com.example.mobimarket.presentation.authorization.LoginFragment"
         android:label="LoginFragment" >
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"
@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_fragmentPasswordWritePhone"
+            app:destination="@id/fragmentPasswordWritePhone" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -20,11 +23,11 @@
         android:label="HomeFragment" />
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.mobimarket.presentation.register.RegisterFragment"
+        android:name="com.example.mobimarket.presentation.authorization.RegisterFragment"
         android:label="RegisterFragment" >
         <action
-            android:id="@+id/action_registerFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/favouriteFragment"
@@ -89,6 +92,31 @@
             android:id="@+id/action_fragmentWritePhone_to_fragmentVerifyCode"
             app:destination="@id/fragmentVerifyCode" />
 
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentPasswordWritePhone"
+        android:name="com.example.mobimarket.presentation.password.FragmentPasswordWritePhone"
+        android:label="FragmentPasswordWritePhone" >
+        <action
+            android:id="@+id/action_fragmentPasswordWritePhone_to_fragmentPasswordVerifyCode"
+            app:destination="@id/fragmentPasswordVerifyCode" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentPasswordVerifyCode"
+        android:name="com.example.mobimarket.presentation.password.FragmentPasswordVerifyCode"
+        android:label="FragmentPasswordVerifyCode" >
+        <action
+            android:id="@+id/action_fragmentPasswordVerifyCode_to_fragmentChangePassword"
+            app:destination="@id/fragmentChangePassword" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentChangePassword"
+        android:name="com.example.mobimarket.presentation.password.FragmentChangePassword"
+        android:label="FragmentChangePassword" >
+        <action
+            android:id="@+id/action_fragmentChangePassword_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <!--  <fragment
           android:id="@+id/registerPasswordFragment"

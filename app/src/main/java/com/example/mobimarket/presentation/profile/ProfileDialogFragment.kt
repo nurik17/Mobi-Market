@@ -13,6 +13,7 @@ import com.example.mobimarket.R
 import com.example.mobimarket.data.entity.StateResult
 import com.example.mobimarket.databinding.DialogProfileLogoutBinding
 import com.example.mobimarket.utils.setSafeOnClickListener
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -51,17 +52,18 @@ class ProfileDialogFragment : DialogFragment() {
         viewModel.logoutCase.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is StateResult.Loading -> {
-                    Log.d("ProfileFragment", "observeLogoutResult: loading")
+                    binding.progressBar.visibility = View.VISIBLE
                 }
 
                 is StateResult.Success<*> -> {
+                    binding.progressBar.visibility = View.GONE
+                    Snackbar.make(requireView(),"Вы успешно вышди из приложения",30).show()
                     findNavController().navigate(R.id.action_profileDialogFragment_to_loginFragment)
-                    Log.d("ProfileFragment", "observeLogoutResult: success")
                 }
 
                 is StateResult.Error -> {
-                    val errorMessage = result.error
-                    Log.d("ProfileFragment", "$errorMessage observeLogoutResult: error")
+                    Snackbar.make(requireView(),"Повторите что-то пошло не так",30).show()
+                    binding.progressBar.visibility = View.GONE
                 }
             }
         }

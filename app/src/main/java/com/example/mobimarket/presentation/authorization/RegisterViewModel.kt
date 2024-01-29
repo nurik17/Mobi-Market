@@ -1,4 +1,4 @@
-package com.example.mobimarket.presentation.register
+package com.example.mobimarket.presentation.authorization
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

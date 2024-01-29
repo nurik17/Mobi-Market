@@ -1,6 +1,9 @@
 package com.example.mobimarket.data.remote
 
+import com.example.mobimarket.data.entity.ForgotPasswordResponse
+import com.example.mobimarket.data.entity.ResetPasswordResponse
 import com.example.mobimarket.domain.AddPhoneNumber
+import com.example.mobimarket.domain.ChangePasswordBody
 import com.example.mobimarket.domain.LogoutBody
 import com.example.mobimarket.domain.LoginRequestBody
 import com.example.mobimarket.domain.LogoutResponse
@@ -20,6 +23,7 @@ import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Path
 
 interface MobiApi {
 
@@ -64,4 +68,23 @@ interface MobiApi {
         @Body code: AddPhoneNumber,
         @Header("Authorization") bearerToken: String
     ): Response<ResponseAddNumber>
+
+    @POST("users/forgot-password/")
+    suspend fun forgotPasswordGetCode(
+        @Body code: AddPhoneNumber,
+        @Header("Authorization") bearerToken: String
+    ): Response<ForgotPasswordResponse>
+
+    @POST("users/reset-password/{user_id}/")
+    suspend fun resetPasswordById(
+        @Path("user_id") userId: Int,
+        @Body code: VerifyPhoneBody,
+        @Header("Authorization") bearerToken: String
+    ): Response<ResetPasswordResponse>
+
+    @POST("users/change-password/")
+    suspend fun changePassword(
+        @Body password: ChangePasswordBody,
+        @Header("Authorization") bearerToken: String
+    ): Response<LogoutResponse>
 }

@@ -3,6 +3,7 @@ package com.example.mobimarket.presentation.profile
 import android.net.Uri
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -60,7 +61,7 @@ class ProfileUpdateFragment :
         }
     }
 
-    private fun putImage(uri: Uri?){
+    private fun putImage(uri: Uri?) {
         Glide.with(requireContext())
             .load(uri)
             .into(binding.imageProfilePage)
@@ -74,8 +75,14 @@ class ProfileUpdateFragment :
             val birthDate = birthdateEdit.text.toString()
             val email = emailEdit.text.toString()
 
-            viewModel.getUpdateInfo(name, lastName, userName,
-                null, birthDate, email)
+            if(name.isNotEmpty() && lastName.isNotEmpty() && userName.isNotEmpty() && email.isNotEmpty()){
+                viewModel.getUpdateInfo(
+                    name, lastName, userName,
+                    null, birthDate, email
+                )
+            }else{
+                Toast.makeText(requireContext(),"Надо заполнить поля корректно",Toast.LENGTH_LONG).show()
+            }
         }
     }
 
@@ -122,9 +129,13 @@ class ProfileUpdateFragment :
                 }
 
                 is UserInfoResult.Error -> {
+                    Toast.makeText(
+                        requireContext(),
+                        "Надо заполнить все поля в данном экране",
+                        Toast.LENGTH_LONG
+                    ).show()
                     val errorMessage = result.error
                     binding.progressBar.visibility = View.GONE
-                    Log.d("ProfileUpdateFragment", "$errorMessage observeUserInfo: error")
                 }
             }
         }
@@ -135,7 +146,7 @@ class ProfileUpdateFragment :
             binding.nameEdit.setText(it.first_name)
             binding.surnameEdit.setText(it.last_name)
             binding.usernameEdit.setText(it.username)
-            binding.birthdateEdit.setText(it.birth_date.toString())
+            binding.birthdateEdit.setText(it.birth_date?.toString() ?: "")
             binding.tvNumber.text = it.phone
             binding.emailEdit.text = it.email
         }

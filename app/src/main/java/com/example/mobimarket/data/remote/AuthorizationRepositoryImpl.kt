@@ -1,6 +1,9 @@
 package com.example.mobimarket.data.remote
 
+import com.example.mobimarket.data.entity.ForgotPasswordResponse
+import com.example.mobimarket.data.entity.ResetPasswordResponse
 import com.example.mobimarket.domain.AddPhoneNumber
+import com.example.mobimarket.domain.ChangePasswordBody
 import com.example.mobimarket.domain.LoginRequestBody
 import com.example.mobimarket.domain.LogoutBody
 import com.example.mobimarket.domain.ProfileUpdate
@@ -20,7 +23,7 @@ class AuthorizationRepositoryImpl @Inject constructor(
     private val api: MobiApi
 ) : AuthorizationRepository {
     override suspend fun login(username: String, password: String): Response<LoginResponse> {
-        val loginRequest = LoginRequestBody(username,password)
+        val loginRequest = LoginRequestBody(username, password)
         return api.login(loginRequest)
     }
 
@@ -34,14 +37,17 @@ class AuthorizationRepositoryImpl @Inject constructor(
         return api.register(registerRequest)
     }
 
-    override suspend fun logout(refresh_token: String, accessToken: String): Response<LogoutResponse> {
+    override suspend fun logout(
+        refresh_token: String,
+        accessToken: String
+    ): Response<LogoutResponse> {
         val refreshToken = LogoutBody(refresh_token)
-        val access = "Bearer $accessToken"
-        return api.logout(refreshToken,access)
+        val access = "$BEARER_PREFIX $accessToken"
+        return api.logout(refreshToken, access)
     }
 
     override suspend fun getInfoUser(bearerToken: String): Response<User> {
-        val access = "Bearer $bearerToken"
+        val access = "$BEARER_PREFIX $bearerToken"
         return api.getUserInfo(access)
     }
 
@@ -54,9 +60,10 @@ class AuthorizationRepositoryImpl @Inject constructor(
         email: String,
         bearerToken: String
     ): Response<ProfileUpdate> {
-        val updateBody = ProfileUpdateBody(first_name, last_name, username, photo,birth_date, email)
-        val access = "Bearer $bearerToken"
-        return api.updateProfileInfo(updateBody,access)
+        val updateBody =
+            ProfileUpdateBody(first_name, last_name, username, photo, birth_date, email)
+        val access = "$BEARER_PREFIX $bearerToken"
+        return api.updateProfileInfo(updateBody, access)
     }
 
     override suspend fun verifyPhoneNumber(
@@ -64,16 +71,49 @@ class AuthorizationRepositoryImpl @Inject constructor(
         bearerToken: String
     ): Response<ProfileUpdate> {
         val verifyPhoneBody = VerifyPhoneBody(code)
-        val access = "Bearer $bearerToken"
-        return api.verifyPhoneNumber(verifyPhoneBody,access)
+        val access = "$BEARER_PREFIX $bearerToken"
+        return api.verifyPhoneNumber(verifyPhoneBody, access)
     }
 
     override suspend fun addPhoneNumber(
         phoneNumber: String,
         bearerToken: String
     ): Response<ResponseAddNumber> {
-        val addPhoneNumber = AddPhoneNumber(phoneNumber)
-        val access = "Bearer $bearerToken"
-        return api.addPhoneNumber(addPhoneNumber,access)
+        val phoneNumberRequest = AddPhoneNumber(phoneNumber)
+        val access = "$BEARER_PREFIX $bearerToken"
+        return api.addPhoneNumber(phoneNumberRequest, access)
+    }
+
+    override suspend fun forgotPasswordGetMessage(
+        phone: String,
+        bearerToken: String
+    ): Response<ForgotPasswordResponse> {
+        val phoneNumber = AddPhoneNumber(phone)
+        val access = "$BEARER_PREFIX $bearerToken"
+        return api.forgotPasswordGetCode(phoneNumber, access)
+    }
+
+    override suspend fun resetPasswordById(
+        userId: Int,
+        code: String,
+        bearerToken: String
+    ): Response<ResetPasswordResponse> {
+        val message = VerifyPhoneBody(code)
+        val access = "$BEARER_PREFIX $bearerToken"
+        return api.resetPasswordById(userId, message, access)
+    }
+
+    override suspend fun changePassword(
+        password: String,
+        confirm_password: String,
+        bearerToken: String
+    ): Response<LogoutResponse> {
+        val requestBody = ChangePasswordBody(password, confirm_password)
+        val access = "$BEARER_PREFIX $bearerToken"
+        return api.changePassword(requestBody, access)
+    }
+    companion object{
+        private const val BEARER_PREFIX="Bearer"
     }
 }
+

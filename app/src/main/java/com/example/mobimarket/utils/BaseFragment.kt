@@ -13,7 +13,8 @@ typealias Inflate<T> = (LayoutInflater, ViewGroup?, Boolean) -> T
 abstract class BaseFragment<VB: ViewBinding>(private val inflate: Inflate<VB>): Fragment() {
     private var _binding: VB? = null
 
-    val binding get() = _binding ?: throw RuntimeException()
+    val binding get() = _binding ?: throw java.lang.Exception()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,13 +27,9 @@ abstract class BaseFragment<VB: ViewBinding>(private val inflate: Inflate<VB>): 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        try {
             onInit()
             onBindView()
             bindViewModel()
-        } catch (e: Exception) {
-            Log.e("OnViewCreated", "Exception by view binding: ${e.message}")
-        }
     }
 
     open fun onInit() {}

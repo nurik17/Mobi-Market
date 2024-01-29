@@ -28,7 +28,7 @@
     <string name="name">Имя</string>
     <string name="username">Имя пользователя</string>
     <string name="surname">Фамилия</string>
-    <string name="birth_date">ггшш-мм-дд</string>
+    <string name="birth_date">гггг-мм-дд</string>
     <string name="add_number">Добавить номер</string>
     <string name="default_number">0(000) 000 000</string>
     <string name="write_phone_number">Введите номер телефона</string>
@@ -38,4 +38,9 @@
     <string name="send_code_again">Отправить код еще раз</string>
     <string name="change_phoneNumber">Изменить номер телефона</string>
     <string name="error_code">Неверный код</string>
+    <string name="new_password">Новый пароль</string>
+    <string name="invite_new_password">Придумайте пароль</string>
+    <string name="again_password">Повторите пароль</string>
+    <string name="password_new">Сброс пароля</string>
+    <string name="password_error">Пароли не совпадают</string>
 </resources>

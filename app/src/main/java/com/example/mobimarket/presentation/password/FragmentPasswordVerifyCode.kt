@@ -1,16 +1,19 @@
-package com.example.mobimarket.presentation.verifyPhone
+package com.example.mobimarket.presentation.password
 
 import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.mobimarket.R
+import com.example.mobimarket.data.entity.ForgotPasswordResponse
 import com.example.mobimarket.data.entity.StateResult
-import com.example.mobimarket.databinding.FragmentVerifyCodeBinding
+import com.example.mobimarket.databinding.FragmentPasswordVerifyBinding
 import com.example.mobimarket.utils.BaseFragment
 import com.example.mobimarket.utils.setSafeOnClickListener
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -19,13 +22,15 @@ import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
-class FragmentVerifyCode :
-    BaseFragment<FragmentVerifyCodeBinding>(FragmentVerifyCodeBinding::inflate) {
+class FragmentPasswordVerifyCode :
+    BaseFragment<FragmentPasswordVerifyBinding>(FragmentPasswordVerifyBinding::inflate) {
 
-    private val viewModel: VerifyCodeViewModel by viewModels()
+    private val viewModel: PasswordVerifyCodeViewModel by viewModels()
     private var countDownJob: Job? = null
+
     private var timeRemainingMillis: Long = 0
     private var isTimerFinished = false
+    private val forgotPasswordInfo: ForgotPasswordResponse? = null
 
     override fun onBindView() {
         super.onBindView()
@@ -39,7 +44,7 @@ class FragmentVerifyCode :
     private fun getCodeFromMessage() {
         binding.verifyCodeBtn.setSafeOnClickListener {
             val codeFromSms = binding.smsCode.text.toString()
-            viewModel.verifyPhoneCode(code = codeFromSms)
+            viewModel.verifyCode(codeFromSms, userId = 214)
         }
     }
 
@@ -54,8 +59,9 @@ class FragmentVerifyCode :
         }
     }
 
+
     private fun observeVerifyCode() {
-        viewModel.verifyPhone.observe(viewLifecycleOwner) { result ->
+        viewModel.resetPasswordById.observe(viewLifecycleOwner) { result ->
             when (result) {
                 StateResult.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
@@ -71,6 +77,9 @@ class FragmentVerifyCode :
                 is StateResult.Error -> {
                     binding.progressBar.visibility = View.GONE
                     binding.tvErrorCode.visibility = View.VISIBLE
+                  /*  Snackbar.make(requireView(), "Повторите запрос что-то пошло не так", 30)
+                        .setBackgroundTint(ContextCompat.getColor(requireContext()R.color.main_red)
+                        .show()*/
                     isTimerFinished = true
                 }
             }
@@ -78,7 +87,7 @@ class FragmentVerifyCode :
     }
 
     private fun navigateToProfileUpdate() {
-        findNavController().navigate(R.id.action_fragmentVerifyCode_to_profileUpdateFragment)
+        findNavController().navigate(R.id.action_fragmentPasswordVerifyCode_to_fragmentChangePassword)
     }
 
     private fun startCountdownTimer() {
@@ -96,6 +105,7 @@ class FragmentVerifyCode :
             updateCountdownText()
         }
     }
+
 
     private fun updateCountdownText() {
         if (isTimerFinished) {
@@ -115,8 +125,10 @@ class FragmentVerifyCode :
         }
     }
 
+
     override fun onDestroy() {
         countDownJob?.cancel()
         super.onDestroy()
     }
+
 }

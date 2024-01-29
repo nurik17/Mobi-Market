@@ -1,4 +1,4 @@
-package com.example.mobimarket.presentation.login
+package com.example.mobimarket.presentation.authorization
 
 import android.text.Editable
 import android.text.TextWatcher
@@ -14,6 +14,7 @@ import com.example.mobimarket.data.entity.StateResult
 import com.example.mobimarket.databinding.FragmentLoginBinding
 import com.example.mobimarket.utils.BaseFragment
 import com.example.mobimarket.utils.setSafeOnClickListener
+import com.example.mobimarket.utils.showCustomSnackbar
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,18 +23,28 @@ import dagger.hilt.android.AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
 
     private val viewModel: LoginViewModel by viewModels()
-
     override fun onBindView() {
         super.onBindView()
+
+        loginToApp()
+        observeLogin()
+        writeInfo()
+        buttonState()
+        navigateToRegister()
+        navigateForgetPassword()
+    }
+
+    private fun navigateForgetPassword(){
+        binding.tvForgotPassword.setSafeOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_fragmentPasswordWritePhone)
+        }
+    }
+    private fun loginToApp(){
         binding.btnLogin.setSafeOnClickListener {
             val userName = binding.userNameEdit.text.toString()
             val password = binding.passwordEdit.text.toString()
             viewModel.login(password, userName)
         }
-        observeLogin()
-        writeInfo()
-        buttonState()
-        navigateToRegister()
     }
 
     private fun navigateToRegister(){
@@ -47,6 +58,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
             when (loginResult) {
                 is StateResult.Error -> {
                     handleLoginError(loginResult.error)
+                    binding.progressBar.visibility = View.GONE
                 }
 
                 StateResult.Loading -> {
@@ -67,6 +79,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         })
 
         binding.passwordEdit.addTextChangedListener(createTextWatcher{
+            viewModel.updateButtonState(it, binding.userNameEdit.text.toString())
             clearErrorState()
         })
 
@@ -88,7 +101,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                 btnLogin.isEnabled = isEnabled
                 btnLogin.setBackgroundColor(
                     if (isEnabled) ContextCompat.getColor(requireContext(), R.color.maine_blue)
-                    else ContextCompat.getColor(requireContext(), R.color.main_red)
+                    else ContextCompat.getColor(requireContext(), R.color.light_grey)
                 )
             }
         }
@@ -112,24 +125,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                 )
             )
         }
-            snackBarSettings(errorMessage)
+            requireView().showCustomSnackbar(errorMessage)
     }
 
-    private fun snackBarSettings(errorMessage: String){
-        val snackbar = Snackbar.make(requireView(), errorMessage, Snackbar.LENGTH_SHORT)
-        snackbar.setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.main_red))
-
-        val snackbarLayout: View = snackbar.view
-        val params = snackbarLayout.layoutParams as FrameLayout.LayoutParams
-        params.gravity = Gravity.TOP
-        snackbarLayout.layoutParams = params
-
-        val textView: TextView = snackbarLayout.findViewById(com.google.android.material.R.id.snackbar_text)
-        textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_warning, 0, 0, 0,)
-        textView.compoundDrawablePadding = resources.getDimensionPixelOffset(R.dimen.snackbar_icon_padding)
-
-        snackbar.show()
-    }
 
     private fun clearErrorState() {
         binding.userNameEdit.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))

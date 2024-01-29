@@ -5,20 +5,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.fragment.findNavController
-import com.example.mobimarket.R
 import com.example.mobimarket.data.entity.StateResult
-import com.example.mobimarket.databinding.FragmentWritePhoneBinding
 import com.example.mobimarket.domain.useCase.AddPhoneNumberUseCase
-import com.example.mobimarket.utils.BaseFragment
-import com.example.mobimarket.utils.setSafeOnClickListener
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
-class FragmentWritePhoneViewModel @Inject constructor(
+class WritePhoneViewModel @Inject constructor(
     private val addPhoneNumberUseCase: AddPhoneNumberUseCase,
     private val sharedPreferences: SharedPreferences
 ) : ViewModel() {

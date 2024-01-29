@@ -1,4 +1,4 @@
-package com.example.mobimarket.presentation.login
+package com.example.mobimarket.presentation.authorization
 
 import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
@@ -6,12 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mobimarket.data.entity.StateResult
-import com.example.mobimarket.domain.LoginResponse
 import com.example.mobimarket.domain.useCase.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,6 +20,9 @@ class LoginViewModel @Inject constructor(
 
     private val _loginResult = MutableLiveData<StateResult>()
     val loginResult: LiveData<StateResult> = _loginResult
+
+    private val _isButtonEnabled = MutableLiveData<Boolean>()
+    val isButtonEnabled: LiveData<Boolean> = _isButtonEnabled
 
     fun login(username: String, password: String) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -34,8 +35,7 @@ class LoginViewModel @Inject constructor(
                     accessToken?.let { refreshToken?.let { it1 -> saveRefreshToken(it1, it) } }
                     _loginResult.postValue(StateResult.Success(response.body()))
                 } else {
-                    val errorMessage = parseErrorMessage(response)
-                    _loginResult.postValue(StateResult.Error(errorMessage))
+                    _loginResult.postValue(StateResult.Error(response.message()))
                 }
             } catch (e: Exception) {
                 _loginResult.postValue(StateResult.Error(e.message.toString()))
@@ -47,17 +47,6 @@ class LoginViewModel @Inject constructor(
         editor.putString("refresh_token", refreshToken)
         editor.putString("access_token", token)
         editor.apply()
-    }
-
-
-
-    private val _isButtonEnabled = MutableLiveData<Boolean>()
-    val isButtonEnabled: LiveData<Boolean> = _isButtonEnabled
-    private fun parseErrorMessage(response: Response<LoginResponse>): String {
-        return when (response.code()) {
-            404 -> "Неверный логин или пароль"
-            else -> response.errorBody()?.string() ?: "Проверьте подключение к интернету"
-        }
     }
 
     fun updateButtonState(userName: String, password: String) {
