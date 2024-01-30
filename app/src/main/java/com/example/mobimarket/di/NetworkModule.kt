@@ -1,7 +1,7 @@
 package com.example.mobimarket.di
 
 
-import com.example.mobimarket.data.remote.MobiApi
+import com.example.mobimarket.data.source.remote.MobiApi
 import com.example.mobimarket.utils.Constant
 import dagger.Module
 import dagger.Provides

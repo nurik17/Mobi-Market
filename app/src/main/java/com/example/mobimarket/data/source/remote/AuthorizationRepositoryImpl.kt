@@ -1,7 +1,7 @@
-package com.example.mobimarket.data.remote
+package com.example.mobimarket.data.source.remote
 
-import com.example.mobimarket.data.entity.ForgotPasswordResponse
-import com.example.mobimarket.data.entity.ResetPasswordResponse
+import com.example.mobimarket.data.model.ForgotPasswordResponse
+import com.example.mobimarket.data.model.ResetPasswordResponse
 import com.example.mobimarket.domain.AddPhoneNumber
 import com.example.mobimarket.domain.ChangePasswordBody
 import com.example.mobimarket.domain.LoginRequestBody

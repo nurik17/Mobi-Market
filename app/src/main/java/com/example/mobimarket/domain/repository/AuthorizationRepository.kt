@@ -1,14 +1,13 @@
 package com.example.mobimarket.domain.repository
 
-import com.example.mobimarket.data.entity.ForgotPasswordResponse
-import com.example.mobimarket.data.entity.ResetPasswordResponse
+import com.example.mobimarket.data.model.ForgotPasswordResponse
+import com.example.mobimarket.data.model.ResetPasswordResponse
 import com.example.mobimarket.domain.ProfileUpdate
 import com.example.mobimarket.domain.LogoutResponse
 import com.example.mobimarket.domain.RegisterResponse
 import com.example.mobimarket.domain.LoginResponse
 import com.example.mobimarket.domain.ResponseAddNumber
 import com.example.mobimarket.domain.User
-import com.example.mobimarket.domain.VerifyPhoneBody
 import retrofit2.Response
 
 interface AuthorizationRepository {

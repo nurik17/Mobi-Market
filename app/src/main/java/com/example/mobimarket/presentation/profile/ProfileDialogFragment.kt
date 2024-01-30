@@ -2,7 +2,6 @@ package com.example.mobimarket.presentation.profile
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mobimarket.R
-import com.example.mobimarket.data.entity.StateResult
+import com.example.mobimarket.data.model.StateResult
 import com.example.mobimarket.databinding.DialogProfileLogoutBinding
 import com.example.mobimarket.utils.setSafeOnClickListener
 import com.google.android.material.snackbar.Snackbar

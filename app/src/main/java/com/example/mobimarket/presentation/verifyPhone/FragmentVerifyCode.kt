@@ -1,13 +1,11 @@
 package com.example.mobimarket.presentation.verifyPhone
 
-import android.os.CountDownTimer
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.mobimarket.R
-import com.example.mobimarket.data.entity.StateResult
+import com.example.mobimarket.data.model.StateResult
 import com.example.mobimarket.databinding.FragmentVerifyCodeBinding
 import com.example.mobimarket.utils.BaseFragment
 import com.example.mobimarket.utils.setSafeOnClickListener

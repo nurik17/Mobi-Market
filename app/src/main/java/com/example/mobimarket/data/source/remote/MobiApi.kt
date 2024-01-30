@@ -1,7 +1,9 @@
-package com.example.mobimarket.data.remote
+package com.example.mobimarket.data.source.remote
 
-import com.example.mobimarket.data.entity.ForgotPasswordResponse
-import com.example.mobimarket.data.entity.ResetPasswordResponse
+import com.example.mobimarket.data.model.ForgotPasswordResponse
+import com.example.mobimarket.data.model.Product
+import com.example.mobimarket.data.model.ProductResponse
+import com.example.mobimarket.data.model.ResetPasswordResponse
 import com.example.mobimarket.domain.AddPhoneNumber
 import com.example.mobimarket.domain.ChangePasswordBody
 import com.example.mobimarket.domain.LogoutBody
@@ -24,10 +26,10 @@ import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface MobiApi {
 
-    @Headers("X-CSRFToken: $X_CSRFToken")
     @POST("users/login/")
     suspend fun login(@Body request: LoginRequestBody): Response<LoginResponse>
 
@@ -87,4 +89,17 @@ interface MobiApi {
         @Body password: ChangePasswordBody,
         @Header("Authorization") bearerToken: String
     ): Response<LogoutResponse>
+
+    @GET("products/")
+    suspend fun getProducts(
+        @Query("page") page: Int,
+        @Query("limit") limit: Int,
+        @Header("Authorization") bearerToken: String
+    ): ProductResponse
+
+    @GET("products/{id}/")
+    suspend fun getInfoProductsById(
+        @Path("id") id: Int,
+        @Header("Authorization") bearerToken: String
+    ): Product
 }

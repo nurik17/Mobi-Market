@@ -1,4 +1,4 @@
-package com.example.mobimarket.data.entity
+package com.example.mobimarket.data.model
 
 sealed class StateResult{
     data class Success<T>(val data: T?) : StateResult()

@@ -1,12 +1,11 @@
 package com.example.mobimarket.presentation.password
 
 import android.content.SharedPreferences
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mobimarket.data.entity.StateResult
+import com.example.mobimarket.data.model.StateResult
 import com.example.mobimarket.domain.useCase.ResetPasswordUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

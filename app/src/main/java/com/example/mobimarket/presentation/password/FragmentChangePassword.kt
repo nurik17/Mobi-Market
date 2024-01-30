@@ -1,18 +1,14 @@
 package com.example.mobimarket.presentation.password
 
-import android.view.Gravity
 import android.view.View
-import android.widget.FrameLayout
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mobimarket.R
-import com.example.mobimarket.data.entity.StateResult
+import com.example.mobimarket.data.model.StateResult
 import com.example.mobimarket.databinding.FragmentChangePasswordBinding
 import com.example.mobimarket.utils.BaseFragment
 import com.example.mobimarket.utils.setSafeOnClickListener
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

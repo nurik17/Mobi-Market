@@ -11,8 +11,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.mobimarket.R
-import com.example.mobimarket.data.entity.StateResult
-import com.example.mobimarket.data.entity.UserInfoResult
+import com.example.mobimarket.data.model.StateResult
+import com.example.mobimarket.data.model.UserInfoResult
 import com.example.mobimarket.databinding.FragmentProfileUpdateBinding
 import com.example.mobimarket.domain.User
 import com.example.mobimarket.utils.BaseFragment

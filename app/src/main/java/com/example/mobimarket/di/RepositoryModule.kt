@@ -1,7 +1,7 @@
 package com.example.mobimarket.di
 
-import com.example.mobimarket.data.remote.AuthorizationRepositoryImpl
-import com.example.mobimarket.data.remote.MobiRepositoryImpl
+import com.example.mobimarket.data.source.remote.AuthorizationRepositoryImpl
+import com.example.mobimarket.data.source.remote.MobiRepositoryImpl
 import com.example.mobimarket.domain.repository.AuthorizationRepository
 import com.example.mobimarket.domain.repository.MobiRepository
 import dagger.Binds

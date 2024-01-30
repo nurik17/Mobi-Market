@@ -1,6 +1,6 @@
 package com.example.mobimarket.domain.useCase
 
-import com.example.mobimarket.data.entity.ForgotPasswordResponse
+import com.example.mobimarket.data.model.ForgotPasswordResponse
 import com.example.mobimarket.domain.repository.AuthorizationRepository
 import retrofit2.Response
 import javax.inject.Inject

@@ -6,8 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mobimarket.data.entity.StateResult
-import com.example.mobimarket.data.entity.UserInfoResult
+import com.example.mobimarket.data.model.StateResult
+import com.example.mobimarket.data.model.UserInfoResult
 import com.example.mobimarket.domain.useCase.GetUserInfoUseCase
 import com.example.mobimarket.domain.useCase.UpdateProfileInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

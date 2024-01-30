@@ -5,7 +5,7 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mobimarket.R
-import com.example.mobimarket.data.entity.StateResult
+import com.example.mobimarket.data.model.StateResult
 import com.example.mobimarket.databinding.FragmentWritePhoneBinding
 import com.example.mobimarket.utils.BaseFragment
 import com.example.mobimarket.utils.setSafeOnClickListener

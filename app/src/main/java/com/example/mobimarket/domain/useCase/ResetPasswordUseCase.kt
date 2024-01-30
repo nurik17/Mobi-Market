@@ -1,6 +1,6 @@
 package com.example.mobimarket.domain.useCase
 
-import com.example.mobimarket.data.entity.ResetPasswordResponse
+import com.example.mobimarket.data.model.ResetPasswordResponse
 import retrofit2.Response
 
 interface ResetPasswordUseCase {

@@ -43,4 +43,6 @@
     <string name="again_password">Повторите пароль</string>
     <string name="password_new">Сброс пароля</string>
     <string name="password_error">Пароли не совпадают</string>
+    <string name="all_products">Все продукты</string>
+    <string name="ow_empty">Ой пусто</string>
 </resources>

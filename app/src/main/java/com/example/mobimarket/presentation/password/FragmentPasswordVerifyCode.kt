@@ -1,19 +1,15 @@
 package com.example.mobimarket.presentation.password
 
-import android.os.CountDownTimer
-import android.util.Log
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.mobimarket.R
-import com.example.mobimarket.data.entity.ForgotPasswordResponse
-import com.example.mobimarket.data.entity.StateResult
+import com.example.mobimarket.data.model.ForgotPasswordResponse
+import com.example.mobimarket.data.model.StateResult
 import com.example.mobimarket.databinding.FragmentPasswordVerifyBinding
 import com.example.mobimarket.utils.BaseFragment
 import com.example.mobimarket.utils.setSafeOnClickListener
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
